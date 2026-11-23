@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consola operacional de observabilidad distribuida</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./css/navigation.css" />
+  <link rel="stylesheet" href="./css/auth.css" />
+</head>
+<body>
+<section class="auth-screen" id="auth-screen" aria-labelledby="auth-title">
+ <div class="auth-panel">
+  <div class="auth-brand"><i data-lucide="activity"></i><strong>APETRIA</strong></div>
+  <p class="auth-subtitle">Consola de observabilidad y detección de anomalías</p>
+  <h1 id="auth-title">Iniciar sesión</h1>
+  <p class="auth-help" id="auth-help">Ingresá con el administrador de esta instalación.</p>
+  <form id="login-form">
+    <label>Usuario<input id="login-username" autocomplete="username" name="username" maxlength="48" required autofocus placeholder="admin" /></label>
+    <label>Contraseña<input id="login-password" type="password" autocomplete="current-password" name="password" required /></label>
+    <button type="submit" id="login-button" class="auth-primary">Ingresar a APETRIA</button>
+  </form>
+  <div id="auth-error" role="alert" aria-live="polite" class="auth-feedback"></div>
+  <p class="auth-footnote">Un administrador por instalación · Acceso local</p>
+ </div>
+</section>
+<div class="app">
+<aside class="sidebar"><div><div class="side-brand"><button class="menu-toggle" id="menu-toggle" type="button" title="Contraer o expandir menú" aria-label="Contraer o expandir menú" aria-expanded="true"><i data-lucide="menu"></i></button><div class="brand-box"><i data-lucide="monitor-up"></i></div></div>
+<nav class="nav" aria-label="Navegación de APETRIA">
+<button type="button" class="nav-item active" data-view="resumen" aria-current="page"><i data-lucide="house"></i><span>Resumen</span></button>
+<button type="button" class="nav-item" data-view="metricas"><i data-lucide="chart-no-axes-combined"></i><span>Métricas</span></button>
+<button type="button" class="nav-item" data-view="anomalias"><i data-lucide="triangle-alert"></i><span>Anomalías</span></button>
+<button type="button" class="nav-item" data-view="eventos"><i data-lucide="notebook-text"></i><span>Eventos</span></button>
+<button type="button" class="nav-item" data-view="fuentes"><i data-lucide="server"></i><span>Fuentes</span></button>
+<button type="button" class="nav-item" data-view="alertas"><i data-lucide="bell"></i><span>Alertas</span></button>
+<button type="button" class="nav-item" data-view="configuracion"><i data-lucide="settings"></i><span>Configuración</span></button>
+</nav></div>
+<button class="side-bottom theme-toggle" id="theme-toggle" type="button"><i data-lucide="moon"></i><span id="theme-label">Tema oscuro</span></button></aside>
+<section class="content"><header class="topbar"><div class="title-wrap"><h1>APETRIA · Consola de observabilidad</h1><p>Evaluación experimental de anomalías en sistemas distribuidos con SMD, NASA SMAP/MSL, HDFS, BGL y NAB AWS.</p></div>
+<div class="top-badges"><div class="top-badge stream" id="api-badge"><span class="stream-dot"></span><span id="connection">API: verificando</span></div><div class="top-badge stream idle" id="stream-badge"><span class="stream-dot"></span><span id="stream-indicator">STREAMING INACTIVO</span></div><div class="top-badge"><i data-lucide="database"></i><span id="selected-source">SMD</span></div><div class="top-badge model-badge ready" id="active-models"><i data-lucide="brain-circuit"></i><span>IF + LSTM AE</span></div></div><button id="profile-button" class="profile-button" type="button" title="Cuenta del administrador" aria-label="Abrir perfil del administrador"><i data-lucide="circle-user-round"></i><span id="profile-name">Administrador</span></button></header>
+<main class="workspace" id="resumen-view"><section class="summary-hero" aria-labelledby="summary-title">
+  <div class="summary-hero-copy"><span class="summary-eyebrow">CENTRO DE OBSERVABILIDAD · REPRODUCCIÓN</span>
+    <h2 id="summary-title">Resumen de la sesión</h2>
+    <p>Ejecutá una fuente y seguí las observaciones reales, las señales de los detectores y las decisiones de la política. Las métricas corresponden al segmento seleccionado.</p></div>
+  <div class="summary-hero-actions" aria-label="Explorar los resultados">
+    <button type="button" data-summary-view="metricas">Ver métricas <span aria-hidden="true">↗</span></button>
+    <button type="button" data-summary-view="anomalias">Explorar anomalías <span aria-hidden="true">↗</span></button>
+    <button type="button" data-summary-view="alertas">Centro de alertas <span aria-hidden="true">↗</span></button>
+  </div>
+</section>
+<div class="chaos-title">REPRODUCCIÓN EXPERIMENTAL · FUENTES REALES</div><div id="sources" class="dataset-row"></div>
+<div class="card replay-controls-sticky" style="padding:16px;margin-bottom:16px"><div class="controls"><label class="control">Dataset<select id="dataset"><option value="smd">SMD</option><option value="nasa">NASA SMAP/MSL</option><option value="nab">NAB AWS</option><option value="hdfs">HDFS</option><option value="bgl">BGL</option></select></label><label class="control"><span id="machine-label">Maquina SMD</span><select id="machine"></select></label><label class="control">Partición<select id="partition"><option value="X_test">X_test</option><option value="X_val">X_val</option></select></label><label class="control">Política de decisión<select id="policy"><option value="and">AND</option><option value="or">OR</option><option value="dual">DUAL</option></select></label><label class="control">Índice inicial<input id="start-index" type="number" min="0" step="1" value="0"></label><label class="control">Observaciones<input id="limit" type="number" min="30" max="10000" value="300"></label><button class="action" id="start" disabled>Iniciar reproducción</button><button class="action secondary" id="stop" disabled>Detener</button><button class="action secondary" id="reset">Reiniciar vista</button></div><div id="status" class="statusline">Conectando con el backend...</div><div class="note" id="replay-explanation">El índice inicial conserva el contexto temporal necesario para las ventanas LSTM; el procesamiento se limita al segmento solicitado y su preparación. Inferencia calculada sobre datos reales antes de la transmisión. El WebSocket reproduce las predicciones; su tasa de recepción no mide throughput de inferencia en línea.</div></div>
+<div class="dashboard-grid"><section class="left-col"><div class="kpis">
+<article class="card kpi cpu" id="observations-card"><div class="kpi-title"><i data-lucide="activity"></i>Observaciones</div><div class="big"><span id="processed">0</span></div><div class="kpi-caption">Recibidas por WebSocket</div><div class="kpi-foot">Ventanas LSTM: <span id="windows" style="margin-left:5px">0</span></div></article>
+<article class="card kpi ram"><div class="kpi-title"><i data-lucide="brain-circuit"></i>Detecciones IF</div><div class="big"><span id="ifalerts">0</span></div><div class="kpi-caption">Isolation Forest</div><div class="kpi-foot">Modelo entrenado ? <span id="model-dataset">SMD</span></div></article>
+<article class="card kpi lat" id="second-model-card"><div class="kpi-title"><i data-lucide="waves"></i>Señales LSTM</div><div class="big"><span id="lstmalerts">0</span></div><div class="kpi-caption">LSTM Autoencoder</div><div class="kpi-foot">Tras ventana temporal</div></article>
+<article class="card kpi z"><div class="kpi-title"><i data-lucide="shield-alert"></i>Alertas de política</div><div class="big"><span id="combined">0</span></div><div class="kpi-caption">Política seleccionada</div><div class="kpi-foot">Predicciones combinadas</div></article>
+</div><article class="card chart-card" id="metrics-chart-card"><div class="panel-head"><div class="panel-title">Scores y umbrales de detección <i data-lucide="circle-info"></i></div><span class="detail">Últimas 80 observaciones</span></div><div class="chart-wrap"><canvas id="chart-metrics"></canvas></div></article>
+<details class="summary-analysis-fold" id="fold-validation-card"><summary><span>Validación experimental<small>Matriz de confusión y etiquetas del segmento</small></span><span class="summary-fold-hint">Mostrar / ocultar</span></summary>
+<article class="card validation-card" id="validation-card"><div class="validation-head"><div class="panel-title">Validaci&oacute;n experimental &middot;  <span id="validation-dataset">SMD</span> <i data-lucide="shield-check"></i></div><span class="detail" id="validation-scope">Esperando reproducción X_test</span></div>
+<div class="validation-grid"><div class="validation-item"><div class="validation-label">Verdaderos positivos (TP)</div><div class="validation-value" id="val-tp">—</div></div><div class="validation-item"><div class="validation-label">Falsos positivos (FP)</div><div class="validation-value" id="val-fp">—</div></div><div class="validation-item"><div class="validation-label">Falsos negativos (FN)</div><div class="validation-value" id="val-fn">—</div></div><div class="validation-item"><div class="validation-label">Verdaderos negativos (TN)</div><div class="validation-value" id="val-tn">—</div></div><div class="validation-item"><div class="validation-label">Precision</div><div class="validation-value" id="val-precision">—</div></div><div class="validation-item"><div class="validation-label">Recall</div><div class="validation-value" id="val-recall">—</div></div><div class="validation-item"><div class="validation-label">F1-score</div><div class="validation-value" id="val-f1">—</div></div><div class="validation-item"><div class="validation-label">FPR</div><div class="validation-value" id="val-fpr">—</div></div></div>
+<div class="validation-note" id="validation-note">Se comparan las predicciones de la política seleccionada con las etiquetas reales del segmento X_test. En DUAL se muestran métricas del LSTM, sin combinación híbrida.</div><div class="validation-timeline" id="validation-timeline" aria-label="Distribución de etiquetas reales"></div><div class="validation-legend"><span><b style="background:#64748b"></b>Normal real</span><span><b style="background:#16a34a"></b>Anomalía real</span><span id="validation-label-count">Etiquetas: —</span></div></article></details><details class="summary-analysis-fold" id="fold-comparison-card"><summary><span>Comparación detallada de modelos<small>Diez indicadores por detector; análisis completo disponible en Métricas</small></span><span class="summary-fold-hint">Mostrar / ocultar</span></summary>
+<article class="card comparison-card" id="comparison-card"><div class="validation-head"><div class="panel-title">Comparaci&oacute;n de modelos &middot;  <span id="comparison-dataset">SMD</span> <i data-lucide="git-compare-arrows"></i></div><span class="detail" id="comparison-scope">Esperando reproducción X_test</span></div>
+<div class="comparison-table-wrap"><table class="comparison-table"><thead><tr><th>Modelo / política</th><th>Evaluadas</th><th>TP</th><th>FP</th><th>FN</th><th>TN</th><th>Precision</th><th>Recall</th><th>F1</th><th>FPR</th></tr></thead><tbody id="comparison-body"><tr><td colspan="10" style="text-align:left;color:var(--muted)">Iniciá una reproducción de X_test para calcular las métricas.</td></tr></tbody></table></div>
+<div class="comparison-note" id="comparison-note">Isolation Forest se evalúa por observación; LSTM y las políticas AND/OR requieren una ventana temporal completa. N/D indica una métrica sin denominador válido.</div></article></details><article class="card diag"><div class="diag-item"><i data-lucide="clock-3"></i><div><div class="diag-name">Latencia media registrada</div><div class="diag-value" id="avg-lat">—</div><div class="diag-sub">Procesamiento por observación</div></div></div><div class="diag-item"><i data-lucide="layers"></i><div><div class="diag-name">Ventana temporal</div><div class="diag-value" id="window-status">Pendiente</div><div class="diag-sub">Contexto del modelo</div></div></div><div class="diag-item"><i data-lucide="database"></i><div><div class="diag-name">Partición</div><div class="diag-value" id="active-partition">X_test</div><div class="diag-sub">Datos <span id="partition-dataset">SMD</span></div></div></div><div class="diag-item"><i data-lucide="radio"></i><div><div class="diag-name">Transmisión</div><div class="diag-value" id="stream-status">Inactiva</div><div class="diag-sub">WebSocket de reproducción</div></div></div></article></section>
+<aside class="card incidents"><div class="inc-head"><div class="inc-title">Observaciones con señales <span class="count" id="critical-count">0</span></div></div><div class="table-wrap" style="overflow:auto"><table><thead><tr><th>Índice</th><th>Modelo</th><th>Score</th><th>Origen</th></tr></thead><tbody id="alerts-body"></tbody></table></div><div class="inc-footer"><p class="note">Registra observaciones con alguna señal positiva de detector o de política. No equivale a alertas finales de la política; esas se muestran en Alertas. Sin señales, la tabla queda vacía.</p></div></aside></div>
+<p class="note" style="margin-top:16px">NASA, HDFS, BGL y NAB se indican según su integración efectiva. Esta consola no representa un despliegue distribuido productivo ni mediciones de latencia extremo a extremo.</p>
+</main>
+<main class="workspace detail-view" id="detail-view" hidden aria-live="off"></main>
+</section></div>
+<section id="profile-dialog" class="profile-overlay" hidden aria-labelledby="profile-title">
+ <div class="profile-panel" role="dialog" aria-modal="true">
+  <div class="profile-titlebar"><h2 id="profile-title">Cuenta del administrador</h2><button type="button" id="profile-close" aria-label="Cerrar perfil">×</button></div>
+  <p id="profile-username" class="auth-help"></p>
+  <form id="password-form" class="profile-form">
+   <h3>Cambiar contraseña</h3>
+   <label>Contraseña actual<input id="old-password" type="password" autocomplete="current-password" required /></label>
+   <label>Nueva contraseña<input id="new-password" type="password" autocomplete="new-password" minlength="12" required /></label>
+   <label>Confirmar nueva contraseña<input id="confirm-password" type="password" autocomplete="new-password" minlength="12" required /></label>
+   <button type="submit" class="auth-primary">Actualizar contraseña</button>
+  </form>
+  <p class="auth-feedback" id="profile-message" role="status"></p>
+  <button id="logout-button" type="button" class="auth-secondary">Cerrar sesión</button>
+ </div>
+</section>
+<script src="./js/auth.js" defer></script></body></html>

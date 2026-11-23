@@ -1,0 +1,29 @@
+# Python / entornos virtuales
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Credenciales y configuracion local
+instance/
+.env
+.env.*
+!.env.example
+
+# Datasets y modelos distribuidos fuera del repositorio
+/data/
+/models/
+/results/
+
+# Temporales de ejecucion
+*.log
+*.tmp
+*.bak
+
+# Editor / sistema operativo
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

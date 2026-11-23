@@ -1,0 +1,36 @@
+/* APETRIA — Acceso local y menú del administrador */
+body:not(.authenticated) .app {display:none!important}
+body.authenticated .auth-screen {display:none!important}
+.auth-screen {min-height:100vh;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at 50% 0%,rgba(0,229,238,.09),transparent 45%),#07111d;color:#eff6ff}
+.auth-panel {width:min(100%,440px);padding:36px;border-radius:14px;background:linear-gradient(150deg,#0e2234,#0b1827);border:1px solid #285068;box-shadow:0 20px 70px #0009}
+.auth-brand {display:flex;align-items:center;justify-content:center;gap:12px;color:#00e5ee;font-size:30px;letter-spacing:2px}
+.auth-brand svg {width:34px;height:34px}
+.auth-subtitle {font-size:13px;color:#aabccd;line-height:1.5;text-align:center;margin:14px 0 28px}
+.auth-panel h1 {font-size:23px;font-weight:700;margin:0 0 10px}
+.auth-help {font-size:13px;line-height:1.55;color:#aec0d4}
+.auth-panel form,.profile-form {display:grid;gap:16px;margin-top:24px}
+.auth-panel label,.profile-form label {display:grid;gap:7px;color:#dce7f2;font-size:13px}
+.auth-panel input,.profile-form input {height:43px;padding:9px 12px;border:1px solid #39536a;border-radius:7px;background:#0a1727;color:#f4f9ff;font:inherit}
+.auth-panel input:focus,.profile-form input:focus {outline:2px solid #00bcd4;outline-offset:1px}
+.auth-primary,.auth-secondary {font:inherit;cursor:pointer;border-radius:7px;padding:12px 16px;font-weight:650}
+.auth-primary {border:1px solid #09abbd;background:#078ba4;color:#fff}
+.auth-primary:hover:not(:disabled){background:#087c96}
+.auth-primary:disabled{opacity:.5;cursor:default}
+.auth-secondary{border:1px solid #53657c;background:transparent;color:inherit;width:100%;margin-top:14px}
+.auth-feedback{min-height:18px;font-size:12px;color:#ff9999;line-height:1.5;margin:14px 0 0}
+.auth-footnote{font-size:11px;color:#8198af;text-align:center;margin:24px 0 0}
+.profile-button {display:flex;align-items:center;gap:8px;background:#12253a;border:1px solid #375a79;border-radius:9px;padding:9px 11px;color:#dceeff;font-size:12px;white-space:nowrap;cursor:pointer;margin-left:8px}
+.profile-button svg{width:19px;height:19px;color:#00e5ee}
+.profile-overlay[hidden] {display:none!important}
+.profile-overlay{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.7);padding:24px;display:grid;place-items:center}
+.profile-panel{width:min(100%,460px);background:#0c1b2c;color:#edf6ff;border:1px solid #32516b;border-radius:13px;padding:26px;box-shadow:0 24px 72px #000a;max-height:90vh;overflow-y:auto}
+.profile-titlebar{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.profile-titlebar h2{font-size:20px;margin:0}
+.profile-titlebar button{background:transparent;color:inherit;border:0;font-size:29px;cursor:pointer}
+.profile-form h3{font-size:15px;margin:0}
+html[data-theme="light"] .profile-panel{background:#fff;color:#132239}
+html[data-theme="light"] .profile-form label{color:#253954}
+html[data-theme="light"] .profile-form input{background:#f8fafc;color:#1b293d;border-color:#cbd5e1}
+html[data-theme="light"] .profile-button{background:#fff;color:#253954}
+@media(max-width:1100px){.profile-button span{display:none}}
+@media(max-width:560px){.auth-panel{padding:24px}.profile-panel{padding:18px}}
