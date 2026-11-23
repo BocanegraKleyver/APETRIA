@@ -26,6 +26,15 @@ Las fuentes NAB, HDFS y BGL **no ejecutan una nueva inferencia por cada mensaje*
 
 La consola tiene siete vistas: **Resumen, Métricas, Anomalías, Eventos, Fuentes, Alertas y Configuración**. Permite seleccionar fuentes y políticas compatibles, iniciar reproducciones y analizar métricas del segmento reproducido.
 
+## Versión pública y descarga
+
+- **Código:** [APETRIA en GitHub](https://github.com/BocanegraKleyver/APETRIA)
+- **Release estable:** [`v1.0.0` — APETRIA E100](https://github.com/BocanegraKleyver/APETRIA/releases/tag/v1.0.0) (etiqueta asociada al commit `7e876fa`)
+- **Artefactos:** [descargar `APETRIA_E100_Demo_5_fuentes_v1.0.0.zip`](https://github.com/BocanegraKleyver/APETRIA/releases/download/v1.0.0/APETRIA_E100_Demo_5_fuentes_v1.0.0.zip)
+- **Verificación:** SHA-256 `35F4A53BA076350A4041BCB9EA6B47DC7D8220B0C0D9BCD4F32AFEDBE1BBA504`
+
+El paquete contiene 14 artefactos técnicos reales y seis archivos complementarios de licencias, atribuciones y manifiesto. El uso y la redistribución de los datasets de terceros están sujetos a sus condiciones de origen.
+
 ## Requisitos
 
 - Windows y PowerShell (entorno donde se verificó la instalación).
@@ -47,7 +56,7 @@ $py = '.\.venv\Scripts\python.exe'
 & $py -m pip check
 ```
 
-**Antes de reproducir fuentes:** obtener el archivo `APETRIA_Demo_5_fuentes_20261123.zip` y extraerlo en la **raíz** del repositorio, preservando `data/`, `models/` y `results/`. El paquete no está incluido en Git; su enlace público de descarga se documentará cuando se autorice y publique. Consultar [`docs/artefactos.md`](docs/artefactos.md) para nombres, rutas y SHA-256.
+**Antes de reproducir fuentes:** descargar el [paquete demo del Release `v1.0.0`](https://github.com/BocanegraKleyver/APETRIA/releases/download/v1.0.0/APETRIA_E100_Demo_5_fuentes_v1.0.0.zip) (`APETRIA_E100_Demo_5_fuentes_v1.0.0.zip`; 14 artefactos técnicos + 6 archivos de atribución e integridad; aproximadamente 8 MiB) y extraerlo en la **raíz** del repositorio, preservando `data/`, `models/` y `results/`. Verificar SHA-256: `35F4A53BA076350A4041BCB9EA6B47DC7D8220B0C0D9BCD4F32AFEDBE1BBA504`. El paquete no se incluye en Git; consultar [`docs/artefactos.md`](docs/artefactos.md) para su manifiesto y atribuciones.
 
 ### Crear administrador local
 
