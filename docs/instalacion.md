@@ -26,18 +26,18 @@ La instalación con `requirements.txt` fue validada en un entorno virtual vacío
 
 ## 3. Incorporar los artefactos reales
 
-Obtener el paquete de demo indicado en [`artefactos.md`](artefactos.md). Su URL de distribución pública está **pendiente de publicación**. Si ya se dispone del ZIP en Descargas, desde la raíz del repositorio:
+Descargar el [ZIP de demostración de APETRIA E100 `v1.0.0`](https://github.com/BocanegraKleyver/APETRIA/releases/download/v1.0.0/APETRIA_E100_Demo_5_fuentes_v1.0.0.zip) (20 archivos, con atribuciones y manifiesto) y consultar [`artefactos.md`](artefactos.md) para su contenido y derechos de uso. Con el ZIP en Descargas, ejecutar desde la raíz del repositorio:
 
 ```powershell
-$zip = Join-Path $env:USERPROFILE 'Downloads\APETRIA_Demo_5_fuentes_20261123.zip'
+$zip = Join-Path $env:USERPROFILE 'Downloads\APETRIA_E100_Demo_5_fuentes_v1.0.0.zip'
 if (-not (Test-Path -LiteralPath $zip -PathType Leaf)) { throw 'No se encuentra el ZIP demo' }
 $sha = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash
-$expected = 'C0FF73F5960509596AD7985C8EA43F30322BC9BE38BC7D41F32BE04921B37148'
+$expected = '35F4A53BA076350A4041BCB9EA6B47DC7D8220B0C0D9BCD4F32AFEDBE1BBA504'
 if ($sha -ne $expected) { throw 'SHA-256 del ZIP diferente del documentado' }
 Expand-Archive -LiteralPath $zip -DestinationPath . -ErrorAction Stop
 ```
 
-El ZIP crea la estructura `data/`, `models/` y `results/` dentro de la raíz de APETRIA. No cambiar los nombres ni mover los archivos. Verificar que no se esté extrayendo contenido sobre un directorio con resultados previos que deban preservarse.
+El ZIP crea la estructura `data/`, `models/` y `results/`, así como los avisos y manifiestos de atribución, dentro de la raíz de APETRIA. No cambiar los nombres ni mover los archivos. Verificar que no se esté extrayendo contenido sobre un directorio con resultados previos que deban preservarse.
 
 ## 4. Crear un administrador
 
@@ -77,7 +77,7 @@ Identificar el proceso antes de detenerlo; preferir `Ctrl+C` en la terminal del 
 
 **Contraseña incorrecta (`HTTP 401`)**: el rechazo es esperado. Reintentar con credenciales válidas, sin compartirlas en registros o capturas.
 
-**Falta un dataset/modelo**: comprobar la presencia y la ruta exacta de los 14 archivos descritos en [`artefactos.md`](artefactos.md). No reemplazar archivos faltantes con datos sintéticos o resultados inventados.
+**Falta un dataset/modelo**: comprobar la presencia y la ruta exacta de los 14 artefactos técnicos descritos en [`artefactos.md`](artefactos.md). No reemplazar archivos faltantes con datos sintéticos o resultados inventados.
 
 **Visualizaciones sin gráficos**: verificar conectividad con los CDN utilizados por Chart.js y Lucide.
 
