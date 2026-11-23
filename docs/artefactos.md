@@ -2,21 +2,23 @@
 
 APETRIA distribuye el código fuente por GitHub y los **artefactos de datos/modelos por separado**. El paquete demo permite evaluar las cinco fuentes sin descargar todo el material experimental.
 
-## Paquete demo verificado funcionalmente
+## Paquete demo publicado y verificado
 
-- **Nombre:** `APETRIA_Demo_5_fuentes_20261123.zip`
-- **Contenido esperado:** 14 archivos.
-- **Tamaño original de la selección:** aproximadamente **16,72 MiB**.
-- **Tamaño ZIP observado:** aproximadamente **8 MB**.
-- **SHA-256 del ZIP generado el 23/11/2026:**
+- **Versión:** [`v1.0.0` — APETRIA E100](https://github.com/BocanegraKleyver/APETRIA/releases/tag/v1.0.0)
+- **Nombre:** `APETRIA_E100_Demo_5_fuentes_v1.0.0.zip`
+- **Descarga directa:** [APETRIA_E100_Demo_5_fuentes_v1.0.0.zip](https://github.com/BocanegraKleyver/APETRIA/releases/download/v1.0.0/APETRIA_E100_Demo_5_fuentes_v1.0.0.zip)
+- **Contenido:** 20 archivos (14 artefactos técnicos + 4 avisos de terceros + `ATRIBUCIONES.md` + `MANIFEST_SHA256.txt`).
+- **Tamaño original de los 14 artefactos:** aproximadamente **16,72 MiB**.
+- **Tamaño ZIP publicado:** **8.392.165 bytes**, aproximadamente **8 MiB**.
+- **SHA-256 del ZIP publicado:**
 
 ```text
-C0FF73F5960509596AD7985C8EA43F30322BC9BE38BC7D41F32BE04921B37148
+35F4A53BA076350A4041BCB9EA6B47DC7D8220B0C0D9BCD4F32AFEDBE1BBA504
 ```
 
-**Descarga del ZIP demo:** enlace público **pendiente de publicación**. No debe inventarse ni incorporarse un enlace de Google Drive que no haya sido confirmado. El archivo generado localmente es el que debe publicarse, sujeto a la comprobación de derechos de redistribución de sus contenidos.
+El digest SHA-256 informado por GitHub Releases coincide con el del ZIP local verificado. Los 14 artefactos técnicos se compararon individualmente y no presentaron diferencias respecto de la selección original. El código y los artefactos se distribuyen por separado. Los modelos, datos procesados y resultados históricos incluidos deben usarse respetando las atribuciones y condiciones originales de las fuentes.
 
-**Datos/artefactos completos:** enlace o directorio de Drive **pendiente de publicación y revisión de permisos**. Los archivos completos no son obligatorios para esta demostración mínima.
+**Datos y artefactos experimentales completos:** descarga por Drive todavía no publicada; no son necesarios para ejecutar esta demostración mínima.
 
 ## Manifiesto de los 14 archivos
 
@@ -48,7 +50,7 @@ La fuente NAB utiliza la serie AWS y las predicciones históricas correspondient
 Desde PowerShell:
 
 ```powershell
-$zip = Join-Path $env:USERPROFILE 'Downloads\APETRIA_Demo_5_fuentes_20261123.zip'
+$zip = Join-Path $env:USERPROFILE 'Downloads\APETRIA_E100_Demo_5_fuentes_v1.0.0.zip'
 Get-FileHash -LiteralPath $zip -Algorithm SHA256
 ```
 
@@ -66,10 +68,10 @@ try {
 }
 ```
 
-Verificar que solo existan las 14 rutas documentadas y que no se incluyan `.env`, `instance/`, contraseñas, credenciales ni archivos ajenos al paquete.
+Verificar que existan las 14 rutas técnicas documentadas, los cuatro avisos bajo `THIRD_PARTY_LICENSES/`, `ATRIBUCIONES.md` y `MANIFEST_SHA256.txt` (20 archivos en total), sin `.env`, `instance/` ni credenciales. El manifiesto contiene los SHA-256 de los 14 artefactos técnicos.
 
 ## Reproducibilidad y atribuciones
 
-Las rutas contienen muestras y resultados de datasets reales. El paquete demo es una distribución técnica para evaluación local; **su publicación externa requiere comprobar los términos de cada dataset** y los permisos pertinentes sobre modelos y artefactos derivados. No equivale a redistribuir los datasets de entrenamiento completos.
+Las rutas contienen muestras y resultados de datasets reales. El paquete demo es una distribución técnica para evaluación local; **su redistribución debe respetar los términos de cada dataset** y los permisos pertinentes sobre modelos y artefactos derivados. No equivale a redistribuir los datasets de entrenamiento completos.
 
 SMD y NASA generan inferencias durante la reproducción; NAB, HDFS y BGL reproducen resultados históricos. El protocolo de mensajes es WebSocket, pero esa circunstancia no significa que todos los datasets ejecuten inferencia nueva.
